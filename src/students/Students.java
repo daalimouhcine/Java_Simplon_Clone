@@ -8,7 +8,8 @@ import java.util.HashMap;
 public class Students {
     HashMap<Integer, Accounts> students = new HashMap<>();
 
-    public void addStudent(int id, String fullName, int phone, String email) {
+    public void addStudent(String fullName, String phone, String email) {
+        int id = students.size()+1;
         this.students.put(id, new Accounts(id, fullName, phone, email, String.valueOf(Rolls.Student)));
     }
 

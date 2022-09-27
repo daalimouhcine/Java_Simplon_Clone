@@ -7,11 +7,20 @@ import java.util.HashMap;
 public class Administrators {
     HashMap<Integer, Accounts> administrators = new HashMap<>();
 
-    public void AddAdministrators(int id, String fullName, int phone, String email) {
-        this.administrators.put(1, new Accounts(id, fullName, phone, email, String.valueOf(Rolls.Administrator)));
+
+    public void addAdministrators(String fullName, String phone, String email) {
+        int id = administrators.size()+1;
+        this.administrators.put(id, new Accounts(id, fullName, phone, email, String.valueOf(Rolls.Administrator)));
     }
 
     public void getAllAdministrators() {
-        System.out.println(administrators);
+        administrators.forEach((key, value) -> {
+            System.out.println(key + ". " + value.getFullName());
+        });
+    }
+    public void showListAdmins() {
+        administrators.forEach((key, value) -> {
+            System.out.print(key + ". " + value.getFullName());
+        });
     }
 }
