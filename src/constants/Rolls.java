@@ -1,7 +1,7 @@
 package constants;
 
 public enum Rolls {
-    Administrator,
+    Admin,
     Teacher,
     Student
 }
