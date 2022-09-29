@@ -1,20 +1,18 @@
 package students;
 
 import accounts.Accounts;
+
 import constants.Rolls;
 
-import java.util.HashMap;
 
-public class Students {
-    HashMap<Integer, Accounts> students = new HashMap<>();
+public class Students extends Accounts{
+    private String promoId;
 
-    public void addStudent(String fullName, String phone, String email) {
-        int id = students.size()+1;
-        this.students.put(id, new Accounts(id, fullName, phone, email, String.valueOf(Rolls.Student)));
+    Students(String id, String fullName, String phone, String email, String roll) {
+        super(id, fullName, phone, email, roll);
     }
 
-    public void getAllStudents() {
-        System.out.println(students);
+    public void setPromoId(String promoId) {
+        this.promoId = promoId;
     }
-
 }

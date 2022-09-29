@@ -3,13 +3,13 @@ import constants.Rolls;
 
 
 public class Accounts {
-        private int id;
+        private String id;
         private String fullName;
         private String phone;
         private String email;
         private String roll;
 
-        public Accounts(int id, String fullName, String phone, String email, String roll) {
+        public Accounts(String id, String fullName, String phone, String email, String roll) {
             this.id = id;
             this.fullName = fullName;
             this.phone = phone;
@@ -30,7 +30,7 @@ public class Accounts {
         return "\nAccount Id: " + this.id + "\nFull Name: " + this.fullName + "\nPhone Number: " + this.phone + "\nEmail: " + this.email + "\nRoll: " + this.roll + "\n";
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
