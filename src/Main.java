@@ -122,6 +122,7 @@ public class Main {
                     System.out.println("and now select the promo");
                     promos.showUnassignedPromos();
                     String promoToAssign = assigningIn.nextLine();
+                    // after getting the teacher id and promo id now we're going to assign each it to the other.
                     teachers.getTeachers().get(teacherToAssign).setPromoId(promoToAssign);
                     promos.getPromos().get(promoToAssign).setTeacherId(teacherToAssign);
 
@@ -133,19 +134,10 @@ public class Main {
         }
     }
 
-    public static void assignPromoToTeacher(String teacherId, String promoId) {
-        teachers.getTeachers().get(teacherId).setPromoId(promoId);
-    }
-
-
-
-
-
-
-
 
 
     public static void teacherSelection() {
+        boolean inAdminSelection = true;
         System.out.println("Select one of the Teachers");
 
         // get admin from user

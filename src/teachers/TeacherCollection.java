@@ -28,7 +28,7 @@ public class TeacherCollection {
 
     public void showUnassignedTeachers() {
         teachers.forEach((key, value) -> {
-            if(value.getPromoId()) {
+            if(value.getPromoId() == null) {
                 System.out.println(key + ". " + value.getFullName());
             }
         });
