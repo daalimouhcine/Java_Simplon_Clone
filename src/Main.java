@@ -4,9 +4,11 @@ import briefs.Briefs;
 import constants.Rolls;
 import constants.Technologies;
 import promos.PromoCollection;
+import promos.Promos;
 import students.StudentCollection;
 import students.Students;
 import teachers.TeacherCollection;
+import teachers.Teachers;
 
 
 import java.sql.SQLOutput;
@@ -59,8 +61,7 @@ public class Main {
 
         // get admin from user
         Scanner adminIn = new Scanner(System.in);
-        int adminSelection = adminIn.nextInt();
-        selectedAccountId = "A-" + adminSelection;
+        selectedAccountId = adminIn.nextLine();
         selectedRoll = String.valueOf(Rolls.Admin);
 
         while(inAdminSelection) {
@@ -148,12 +149,12 @@ public class Main {
                     students.addStudent("first student", "12635", "firstStudent@gmail.com");
                     students.addStudent("second student", "34059", "secondStudent@gmail.com");
                     students.addStudent("third student", "047647", "thirdStudent@gmail.com");
-                    students.addStudent("fifth student", "52683", "fifthTeacher@gmail.com");
-                    students.addStudent("sixth student", "25659", "sixthTeacher@gmail.com");
-                    students.addStudent("seventh teacher", "037583", "seventhTeacher@gmail.com");
-                    students.addStudent("eight teacher", "34529", "eightTeacher@gmail.com");
-                    students.addStudent("ninth teacher", "17583", "ninthTeacher@gmail.com");
-                    students.addStudent("tenth teacher", "6347090", "tenthTeacher@gmail.com");
+                    students.addStudent("fifth student", "52683", "fifthStudent@gmail.com");
+                    students.addStudent("sixth student", "25659", "sixthStudent@gmail.com");
+                    students.addStudent("seventh student", "037583", "seventhStudent@gmail.com");
+                    students.addStudent("eight student", "34529", "eightStudent@gmail.com");
+                    students.addStudent("ninth student", "17583", "ninthStudent@gmail.com");
+                    students.addStudent("tenth student", "6347090", "tenthStudent@gmail.com");
                 }
                 case 55 -> {
                     promos.addPromo("first promo");
@@ -173,12 +174,11 @@ public class Main {
 
         // get teacher from user
         Scanner teacherIn = new Scanner(System.in);
-        int teacherSelection = teacherIn.nextInt();
-        selectedAccountId = "T-" + teacherSelection;
+        selectedAccountId = teacherIn.nextLine();
         selectedRoll = String.valueOf(Rolls.Teacher);
 
         if(teachers.getSpecificTeacher(selectedAccountId).getPromoId() == null) {
-            System.out.println("that teacher is not related with a promo");
+            System.out.println("**** that teacher is not related with a promo ****");
             inTeacherSelection = false;
         }
 
@@ -283,6 +283,96 @@ public class Main {
     }
 
     public static void studentSelection() {
-        System.out.println("student");
+        boolean inStudentSelection = true;
+        System.out.println("Select one of the Students");
+        students.showStudentList();
+
+        // get student from user
+        Scanner studentIn = new Scanner(System.in);
+        selectedAccountId = studentIn.nextLine();
+        selectedRoll = String.valueOf(Rolls.Student);
+
+        if(students.getSpecificStudent(selectedAccountId).getPromoId() == null) {
+            System.out.println("***** Sorry you are not in anny of the promos you don't have access to any thing yat *****");
+            inStudentSelection = false;
+        }
+
+        while(inStudentSelection) {
+            // display the student's functionality
+            System.out.printf("%25s", "____student's Menu____\n\n");
+            System.out.println("What you want to do:\n");
+            System.out.println("1. Show my Promo details");
+            System.out.println("2. Show existent Briefs");
+            System.out.println("3. Show details about specific Brief");
+            System.out.println("4. Validate a brief");
+            System.out.println("5. Return");
+
+            Scanner studentMenuIn = new Scanner(System.in);
+            int studentMenuSelection = studentMenuIn.nextInt();
+
+            Promos studentPromo =  promos.getSpecificPromo(students.getSpecificStudent(selectedAccountId).getPromoId());
+            ArrayList<String> myBriefsByTeacher = teachers.getSpecificTeacher(studentPromo.getTeacherId()).getCreatedBriefs();
+
+
+            switch (studentMenuSelection) {
+                case 1 -> {
+                    Teachers studentTeacher = teachers.getSpecificTeacher(studentPromo.getTeacherId());
+                    System.out.println("Name of the promo: " + studentPromo.getName() + ".\nName of the teacher: " + studentTeacher.getFullName());
+                }
+                case 2 -> {
+                    myBriefsByTeacher.forEach(briefKey -> {
+                        Briefs myBrief = briefs.getSpecificBrief(briefKey);
+                        if(myBrief.isStudentValidate(selectedAccountId) == null) {
+                            System.out.println(myBrief.id + ": " + myBrief.title + " / didn't valid");
+                        } else {
+                            System.out.println(myBrief.id + ": " + myBrief.title + " / validated");
+                        }
+                    });
+                }
+                case 3 -> {
+                    myBriefsByTeacher.forEach(briefKey -> {
+                        Briefs myBrief = briefs.getSpecificBrief(briefKey);
+                        System.out.println(myBrief.id + ": " + myBrief.title);
+                    });
+                    System.out.println("Select the Brief to see details: ");
+                    Scanner briefIn = new Scanner(System.in);
+                    String selectedBriefId = briefIn.nextLine();
+                    Briefs selectedBrief = briefs.getSpecificBrief(selectedBriefId);
+                    System.out.println("Title: " + selectedBrief.title);
+                    System.out.println("Description: " + selectedBrief.description);
+                    System.out.print("Technologies: ");
+                    selectedBrief.technologies.forEach(tech -> {
+                        System.out.print(tech + ",");
+                    });
+                    if(selectedBrief.isStudentValidate(selectedAccountId) == null) {
+                        System.out.println("\nValidation: didn't valid");
+                    } else {
+                        System.out.println("\nValidation: validated");
+                        System.out.println("Validation Message: " + selectedBrief.isStudentValidate(selectedAccountId).message);
+                        System.out.println("Link of the repository: " + selectedBrief.isStudentValidate(selectedAccountId).repoLink);
+                    }
+                }
+                case 4 -> {
+                    myBriefsByTeacher.forEach(briefKey -> {
+                        Briefs myBrief = briefs.getSpecificBrief(briefKey);
+                        if(myBrief.isStudentValidate(selectedAccountId) == null) {
+                            System.out.println(myBrief.id + ": " + myBrief.title);
+                        }
+                    });
+                    System.out.println("Select the Brief to valid: ");
+                    Scanner briefIn = new Scanner(System.in);
+                    String selectedBriefId = briefIn.nextLine();
+                    Briefs selectedBrief = briefs.getSpecificBrief(selectedBriefId);
+                    System.out.println("Message: ");
+                    String validationMessage = briefIn.nextLine();
+                    System.out.println("the link of the repository: ");
+                    String repoLink = briefIn.nextLine();
+                    selectedBrief.validateBrief(selectedAccountId, selectedBriefId, validationMessage, repoLink);
+                }
+                case 5 -> {
+                    inStudentSelection = false;
+                }
+            }
+        }
     }
 }
