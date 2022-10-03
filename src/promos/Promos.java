@@ -39,7 +39,6 @@ public class Promos {
     }
 
     public void addBrief(Briefs brief) {
-        String id = "B-" + ( briefs.size() + 1);
-        briefs.put(id, brief);
+        briefs.put(brief.id, brief);
     }
 }
