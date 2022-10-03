@@ -18,6 +18,10 @@ public class PromoCollection {
         return promos;
     }
 
+    public Promos getSpecificPromo(String key) {
+        return promos.get(key);
+    }
+
     public void showPromoList() {
         promos.forEach((key, value) -> {
             System.out.println(key + ". " + value.getName());
