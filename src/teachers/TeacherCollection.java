@@ -19,6 +19,9 @@ public class TeacherCollection {
     public HashMap<String, Teachers> getTeachers() {
         return teachers;
     }
+    public Teachers getSpecificTeacher(String key) {
+        return teachers.get(key);
+    }
 
     public void showTeacherList() {
         teachers.forEach((key, value) -> {

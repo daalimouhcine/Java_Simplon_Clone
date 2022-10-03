@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Teachers extends Accounts{
     private String promoId;
-    private final ArrayList<Briefs> createdBriefs;
+    private final ArrayList<String> createdBriefs;
 
     public Teachers(String id, String fullName, String phone, String email, String roll) {
         super(id, fullName, phone, email, roll);
@@ -23,13 +23,15 @@ public class Teachers extends Accounts{
         return promoId;
     }
 
-    public void createBrief(Briefs brief) {
-        createdBriefs.add(brief);
+    public ArrayList<String> getCreatedBriefs() {
+        return createdBriefs;
+    }
+
+    public void addCreateBrief(String briefId) {
+        createdBriefs.add(briefId);
     }
 
     public void showListOfCreatedBriefs() {
-        createdBriefs.forEach(brief -> {
-            System.out.println(brief.id + ". " + brief.title);
-        });
+        createdBriefs.forEach(System.out::println);
     }
 }
