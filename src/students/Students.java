@@ -12,7 +12,12 @@ public class Students extends Accounts{
         super(id, fullName, phone, email, roll);
     }
 
+    public String getPromoId() {
+        return promoId;
+    }
+
     public void setPromoId(String promoId) {
         this.promoId = promoId;
     }
+
 }

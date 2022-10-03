@@ -7,6 +7,8 @@ import java.util.HashMap;
 public class StudentCollection {
     HashMap<String, Students> students;
 
+
+
     public StudentCollection() {
         students = new HashMap<>();
     }
@@ -16,8 +18,8 @@ public class StudentCollection {
         students.put(id, new Students(id, fullName, phone, email, String.valueOf(Rolls.Student)));
     }
 
-    public void getAllStudents() {
-        System.out.println(students);
+    public HashMap<String, Students> getAllStudents() {
+        return students;
     }
 
     public void showStudentList() {
@@ -25,4 +27,12 @@ public class StudentCollection {
             System.out.println(key + ". " + value.getFullName());
         });
     }
+
+    public Students getSpecificStudent(String key) {
+        return students.get(key);
+    }
 }
+
+
+
+
