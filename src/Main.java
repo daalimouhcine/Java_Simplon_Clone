@@ -6,8 +6,20 @@ import constants.Technologies;
 import promos.PromoCollection;
 import promos.Promos;
 import students.StudentCollection;
+import students.Students;
 import teachers.TeacherCollection;
 import teachers.Teachers;
+
+
+import services.Courier;
+import services.SendService;
+import models.SendEnhancedRequestBody;
+import models.SendEnhancedResponseBody;
+import models.SendRequestMessage;
+import models.SendRequestMessageRouting;
+import com.google.gson.Gson;
+import java.io.IOException;
+import java.util.*;
 
 
 import java.sql.SQLOutput;
@@ -49,7 +61,6 @@ public class Main {
                 default -> System.out.println("this selection is not supported");
             }
         }
-
     }
 
     public static void adminSelection() {
@@ -145,9 +156,9 @@ public class Main {
                     teachers.addTeacher("third teacher", "90170", "thirdTeacher@gmail.com");
                 }
                 case 33 -> {
-                    students.addStudent("first student", "12635", "firstStudent@gmail.com");
+                    students.addStudent("first student", "12635", "the.daali.mouhcine@gmail.com");
                     students.addStudent("second student", "34059", "secondStudent@gmail.com");
-                    students.addStudent("third student", "047647", "thirdStudent@gmail.com");
+                    students.addStudent("third student", "047647", "daalim277@gmail.com");
                     students.addStudent("fifth student", "52683", "fifthStudent@gmail.com");
                     students.addStudent("sixth student", "25659", "sixthStudent@gmail.com");
                     students.addStudent("seventh student", "037583", "seventhStudent@gmail.com");
@@ -243,6 +254,13 @@ public class Main {
                     Scanner briefIn = new Scanner(System.in);
                     String selectedBrief = briefIn.nextLine();
                     briefs.getSpecificBrief(selectedBrief).launchTheBrief();
+                    students.getAllStudents().forEach((key, student) -> {
+                        System.out.println("test1");
+                        if(student.getPromoId().equals(teachers.getSpecificTeacher(selectedAccountId).getPromoId())) {
+                            System.out.println("test2");
+                            sendEmail(briefs.getSpecificBrief(selectedBrief), student);
+                        }
+                    });
                 }
                 case 4 -> {
                     System.out.println("Select Students that you want (ex:S-1,S-5,S-4): ");
@@ -373,5 +391,35 @@ public class Main {
                 }
             }
         }
+    }
+
+    public static void sendEmail(Briefs brief, Students student) {
+        Courier.init("pk_prod_Q02ESMDGP3MRBNMWTZ3Q1XN0A244");
+
+        SendEnhancedRequestBody sendEnhancedRequestBody = new SendEnhancedRequestBody();
+        SendRequestMessage sendRequestMessage = new SendRequestMessage();
+        HashMap<String, String> to = new HashMap<String, String>();
+        to.put("email", student.getEmail());
+        sendRequestMessage.setTo(to);
+
+        Teachers teacher = teachers.getSpecificTeacher(selectedAccountId);
+
+        HashMap<String, String> content = new HashMap<String, String>();
+        content.put("title", "Simplon Clone : Nouveau Brief");
+        content.put("body", "Hello " + student.getFullName() + ",\nYour teacher " + teacher.getFullName() + " is assign the brief: " + brief.title + " for your promo.\n" + "Brief Details:\nTitle: " + brief.title +".\nDescription: " + brief.description + ".\nTechnologies: " + brief.technologies);
+        sendRequestMessage.setContent(content);
+
+        HashMap<String, Object> data = new HashMap<String, Object>();
+        data.put("joke", "Why do Java programmers have to wear glasses? Because they don't C#");
+        sendRequestMessage.setData(data);
+        sendEnhancedRequestBody.setMessage(sendRequestMessage);
+
+        try {
+            SendEnhancedResponseBody response = new SendService().sendEnhancedMessage(sendEnhancedRequestBody);
+            System.out.println(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
