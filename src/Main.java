@@ -255,9 +255,7 @@ public class Main {
                     String selectedBrief = briefIn.nextLine();
                     briefs.getSpecificBrief(selectedBrief).launchTheBrief();
                     students.getAllStudents().forEach((key, student) -> {
-                        System.out.println("test1");
-                        if(student.getPromoId().equals(teachers.getSpecificTeacher(selectedAccountId).getPromoId())) {
-                            System.out.println("test2");
+                        if(student.getPromoId() == teachers.getSpecificTeacher(selectedAccountId).getPromoId()) {
                             sendEmail(briefs.getSpecificBrief(selectedBrief), student);
                         }
                     });
