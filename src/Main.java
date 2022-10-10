@@ -1,4 +1,5 @@
 import administrators.AdminCollection;
+import administrators.AdminDB;
 import briefs.BriefCollection;
 import briefs.Briefs;
 import constants.Rolls;
@@ -38,7 +39,7 @@ public class Main {
     static BriefCollection briefs = new BriefCollection();
 
     public static void main(String[] args) {
-        admins.addAdmin("Mouhcine Daali", "0634175255", "the.daali.mouhcine@gmail.com");
+        AdminDB.addAdmin("Mouhcine Daali", "0634175255", "the.daali.mouhcine@gmail.com");
 
         boolean inUserSelection = true;
         while(inUserSelection) {
@@ -67,7 +68,7 @@ public class Main {
         boolean inAdminSelection = true;
 
         System.out.println("Select one of the Admins");
-        admins.showAdminsList();
+        AdminDB.showAdminsList();
 
         // get admin from user
         Scanner adminIn = new Scanner(System.in);
