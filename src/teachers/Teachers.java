@@ -2,36 +2,21 @@ package teachers;
 
 import accounts.Accounts;
 
-import briefs.Briefs;
-
-import java.util.ArrayList;
 
 public class Teachers extends Accounts{
-    private String promoId;
-    private final ArrayList<String> createdBriefs;
+    private int promoId;
 
-    public Teachers(String id, String fullName, String phone, String email, String roll) {
-        super(id, fullName, phone, email, roll);
-        createdBriefs = new ArrayList<>();
+
+    public Teachers(int id, String fullName, String phone, String email) {
+        super(id, fullName, phone, email);
     }
 
-    public void setPromoId(String promoId) {
+    public void setPromoId(int promoId) {
         this.promoId = promoId;
     }
 
-    public String getPromoId() {
+    public int getPromoId() {
         return promoId;
     }
 
-    public ArrayList<String> getCreatedBriefs() {
-        return createdBriefs;
-    }
-
-    public void addCreateBrief(String briefId) {
-        createdBriefs.add(briefId);
-    }
-
-    public void showListOfCreatedBriefs() {
-        createdBriefs.forEach(System.out::println);
-    }
 }

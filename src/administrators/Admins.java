@@ -4,8 +4,8 @@ import accounts.Accounts;
 
 public class Admins extends Accounts {
     
-    Admins (String id, String fullName, String phone, String email, String roll) {
-        super(id, fullName, phone, email, roll);
+    Admins (int id, String fullName, String phone, String email) {
+        super(id, fullName, phone, email);
     }
 
 }

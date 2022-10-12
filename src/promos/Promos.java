@@ -38,7 +38,7 @@ public class Promos {
         students.put(id, student);
     }
 
-    public void addBrief(Briefs brief) {
-        briefs.put(brief.id, brief);
-    }
+//    public void addBrief(Briefs brief) {
+//        briefs.put(brief.id, brief);
+//    }
 }

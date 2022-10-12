@@ -4,7 +4,6 @@ import config.ConnectionDB;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Objects;
 
 public class AdminDB {
@@ -30,4 +29,5 @@ public class AdminDB {
             System.out.println(e.getMessage());
         }
     }
+
 }

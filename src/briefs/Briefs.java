@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Briefs {
-    public String id;
-    public String promoId;
+    public int id;
+    public int promoId;
     public String title;
     public String description;
-    public ArrayList<String> technologies;
+    public String technologies;
     public boolean launch;
     public HashMap<String, ValidationMessage> valide;
 
-    Briefs(String id, String promoId, String title, String description, ArrayList<String> technologies) {
+    Briefs(int id, int promoId, String title, String description, String technologies) {
         valide = new HashMap<>();
         this.id = id;
         this.promoId = promoId;

@@ -6,17 +6,17 @@ import constants.Rolls;
 
 
 public class Students extends Accounts{
-    private String promoId;
+    private int promoId;
 
-    Students(String id, String fullName, String phone, String email, String roll) {
-        super(id, fullName, phone, email, roll);
+    Students(int id, String fullName, String phone, String email) {
+        super(id, fullName, phone, email);
     }
 
-    public String getPromoId() {
+    public int getPromoId() {
         return promoId;
     }
 
-    public void setPromoId(String promoId) {
+    public void setPromoId(int promoId) {
         this.promoId = promoId;
     }
 
